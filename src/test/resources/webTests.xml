@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name = "Android tests">
-    <test name = "Native tests">
+    <test name = "Web tests">
         <groups>
             <run>
                 <include name="web" />

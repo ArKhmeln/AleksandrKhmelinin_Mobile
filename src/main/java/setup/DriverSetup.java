@@ -38,7 +38,7 @@ public class DriverSetup extends TestProperties {
 
         switch(TEST_PLATFORM) {
             case "Android":
-                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,"emulator-5554");
+                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DEVICE_NAME);
                 browserName = "Chrome";
                 break;
             case "iOS":
@@ -71,7 +71,7 @@ public class DriverSetup extends TestProperties {
         }
     }
     //
-    public AppiumDriver driver() throws Exception {
+    protected AppiumDriver driver() throws Exception {
         if (driverSingle == null) {
             prepareDriver();
         }
