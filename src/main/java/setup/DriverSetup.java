@@ -9,11 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class Driver extends TestProperties {
+public class DriverSetup extends TestProperties {
 
-    protected AppiumDriver driver; //allows us to work with Android and iOS both
+    private static AppiumDriver driverSingle = null; //allows us to work with Android and iOS both
     protected DesiredCapabilities capabilities;
-    protected WebDriverWait wait; //selenium structure to work with timeouts
+    private static WebDriverWait waitSingle; //selenium structure to work with timeouts
 
     //properties to be read (we hardcoded until using them)
     protected String AUT; //(mobile) app under testing
@@ -23,39 +23,30 @@ public class Driver extends TestProperties {
     protected String DEVICE_NAME;
 
     //Constructor initializes properties on driver creation
-    protected Driver() throws IOException {
-        AUT = getProp("aut");
-        String t_sut = getProp("sut");
+    protected DriverSetup(String type) throws IOException {
+        AUT = getProp(type,"aut");
+        String t_sut = getProp(type,"sut");
         SUT = t_sut == null ? null : "http://" + t_sut;
-        TEST_PLATFORM = getProp("platform");
-        DRIVER = getProp("driver");
-        DEVICE_NAME = getProp("deviceName");
+        TEST_PLATFORM = getProp(type,"platform");
+        DRIVER = getProp(type,"driver");
+        DEVICE_NAME = getProp(type,"deviceName");
     }
 
     protected void prepareDriver() throws Exception {
         capabilities = new DesiredCapabilities();
         String browserName;
 
-        if (TEST_PLATFORM.equals("Android")) {
-            browserName = "Chrome";
-            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "emulator-5554");
-        } else if (TEST_PLATFORM.equals("iOS")) {
-            browserName = "Safari";
-        } else {
-            throw new Exception("Unknown mobile platform");
-        }
-
-        /*switch(TEST_PLATFORM) {
+        switch(TEST_PLATFORM) {
             case "Android":
                 capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,"emulator-5554");
                 browserName = "Chrome";
                 break;
             case "iOS":
-                //no simulator -__- because it's a billet
+                //no simulator, maybe in future -_-
                 browserName = "Safari";
                 break;
-            defaut: throw new Exception("Unknown mobile platform");
-        }*/
+            default: throw new Exception("Unknown mobile platform");
+        }
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, TEST_PLATFORM);
 
         // Setup type of application : mobile, web (or hybrid)
@@ -71,9 +62,24 @@ public class Driver extends TestProperties {
         }
 
         // Init driver for local Appium server with capabilities have been set
-        driver = new AppiumDriver(new URL(DRIVER), capabilities);
+        if(driverSingle == null) {
+            driverSingle = new AppiumDriver(new URL(DRIVER), capabilities);
+        }
+        // Set an object to handle timeouts
+        if (waitSingle == null) {
+            waitSingle = new WebDriverWait(driver(), 10);
+        }
+    }
+    //
+    public AppiumDriver driver() throws Exception {
+        if (driverSingle == null) {
+            prepareDriver();
+        }
+        return driverSingle;
+    }
 
-        // Set an Object to handle timeouts
-        wait = new WebDriverWait(driver, 10);
+    // Set an Object to handle timeouts
+    protected WebDriverWait driverWait() throws Exception {
+        return waitSingle;
     }
 }

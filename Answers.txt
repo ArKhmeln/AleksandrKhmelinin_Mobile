@@ -1,14 +1,19 @@
 5.	Modify existing tests to run on a real device. What should be changed?
-Capabilities (deviceName) should be changed in DriverSetup and Appium inspector both.
+
+Capabilities (deviceName) should be changed  both in property files and Appium inspector.
 
 
 6.	Connect a real device to Appium (describe required actions) and run tests. Are there any difference with run
 on emulator?
+
 Required actions:
 Enable developers options, usb debugging etc, connect device to PC via USB, start Appium server, start Inspector
 session, fill in capabilities (deviceName, platformName, browserName, app), click "Start Session".
+"DeviceName" in property file should have appropriate letters instead of "emulator-5554".
+
 Differences:
-I had to update Chrome in emulator because of error. Also there were some annoying pop-ups.
-Appium Settings have been installed while smartphone was connected through the appium for the first time. It launches
-every time i run tests. In Chrome with website loading pops up "Choose search engine".
+
+I had to update Chrome in emulator because of error. Also there were some annoying pop-ups like "Welcome to Chrome"
+In Chrome on a real device "Choose search engine" was displayed while running web test and all previous tabs were closed,
+settings have been reset.
 
