@@ -23,6 +23,12 @@ public class DriverSetup extends TestProperties {
     protected String DEVICE_NAME;
 
     //Constructor initializes properties on driver creation
+
+    /**
+     * Set appropriate capabilities to Appium driver on platform and application
+     * @param type
+     * @throws IOException
+     */
     protected DriverSetup(String type) throws IOException {
         AUT = getProp(type,"aut");
         String t_sut = getProp(type,"sut");
@@ -42,7 +48,6 @@ public class DriverSetup extends TestProperties {
                 browserName = "Chrome";
                 break;
             case "iOS":
-                //no simulator, maybe in future -_-
                 browserName = "Safari";
                 break;
             default: throw new Exception("Unknown mobile platform");

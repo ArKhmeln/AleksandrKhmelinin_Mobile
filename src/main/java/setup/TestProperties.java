@@ -6,11 +6,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Properties using
+ */
  class TestProperties {
 
     private Properties currentProps = new Properties();
     private String propertyPath;
 
+    /**
+     * Read set of properties
+     * @param type
+     * @return
+     * @throws IOException
+     */
     private Properties getCurrentProps(String type) throws IOException {
 
         switch(type) {
@@ -29,6 +38,13 @@ import java.util.Properties;
         return currentProps;
     }
 
+    /**
+     * Return certain property value by key
+     * @param type
+     * @param propKey
+     * @return
+     * @throws IOException
+     */
      String getProp(String type, String propKey) throws IOException {
         if(!currentProps.containsKey(propKey)) {
             currentProps = getCurrentProps(type);
