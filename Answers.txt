@@ -8,8 +8,8 @@ Yes, if app is installed on cloud device.
 
 4.	Try to use autoLaunch capability with app as before instead of appPackage and appActivity. Does this approach work?
 
-This capability is already set to true dy default. Adding it as desired capability without appPackage and appActivity
-leads to Exception "Original error: The desired capabilities must include either: app, appPackage or browserName, sessionId:null."
+Adding autoLaunch as desired capability without appPackage and appActivity leads to Exception "Original error: The
+desired capabilities must include either: app, appPackage or browserName, sessionId:null."
 
 8.	What’s wrong with our code? How to fix/improve it? Implement your suggestions.
 
