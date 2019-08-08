@@ -23,6 +23,7 @@ public class DriverSetup extends TestProperties {
     protected String UDID;
     protected String APP_PACKAGE;
     protected String APP_ACTIVITY;
+    private String type;
 
 
     //Constructor initializes properties on driver creation
@@ -31,7 +32,14 @@ public class DriverSetup extends TestProperties {
      * @param type
      * @throws IOException
      */
-    protected DriverSetup(String type) throws IOException {
+    protected DriverSetup(String type) {
+        this.type = type;
+    }
+
+    protected void prepareDriver() throws Exception {
+        capabilities = new DesiredCapabilities();
+        String browserName;
+
         AUT = getProp(type,"aut");
         String t_sut = getProp(type,"sut");
         SUT = t_sut == null ? null : "http://" + t_sut;
@@ -41,11 +49,6 @@ public class DriverSetup extends TestProperties {
         UDID = getProp(type, "udid");
         APP_PACKAGE = getProp(type, "appPackage");
         APP_ACTIVITY = getProp(type, "appActivity");
-    }
-
-    protected void prepareDriver() throws Exception {
-        capabilities = new DesiredCapabilities();
-        String browserName;
 
         switch(TEST_PLATFORM) {
             case "Android":

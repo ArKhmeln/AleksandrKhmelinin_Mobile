@@ -8,7 +8,7 @@ import static org.testng.Assert.assertTrue;
 @Test(groups = "native")
 public class ContactManagerTest extends Hooks {
 
-   ContactManagerTest() throws Exception {
+   ContactManagerTest() {
        super("native");
    }
 
@@ -25,7 +25,7 @@ public class ContactManagerTest extends Hooks {
     }*/
 
     @Test(description = "Check fields are displayed in ContactManager")
-    public void simplestTest() throws Exception {
+    public void simplestTest() {
         contactManagerPage.getAddButton().click();
         // Check fields of "AddContact"
         assertTrue(contactManagerPage.getAddContactTitle().isDisplayed());

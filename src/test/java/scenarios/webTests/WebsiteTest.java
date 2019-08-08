@@ -15,7 +15,7 @@ import static org.testng.Assert.*;
 @Test(groups = "web")
 public class WebsiteTest extends Hooks {
 
-    WebsiteTest() throws Exception {
+    WebsiteTest() {
         super("web");
     }
 
