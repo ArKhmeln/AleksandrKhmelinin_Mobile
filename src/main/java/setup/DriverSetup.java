@@ -30,24 +30,23 @@ public class DriverSetup extends TestProperties {
         this.type = type;
     }
 
-    protected void setPropertiesToPrepareDriver(String type) throws Exception {
-        AUT = getProp(type,"aut");
-        String t_sut = getProp(type,"sut");
-        SUT = t_sut == null ? null : "http://" + t_sut;
-        TEST_PLATFORM = getProp(type,"platform");
-        DRIVER = getProp(type,"driver");
-        DEVICE_NAME = getProp(type,"deviceName");
+    protected void setPropertiesAndPrepareDriver(String type) throws Exception {
+        setProperties(type);
         prepareDriver();
     }
 
-    protected void setPropertiesToPrepareDriver() throws Exception {
+    protected void setPropertiesAndPrepareDriver() throws Exception {
+        setProperties(this.type);
+        prepareDriver();
+    }
+
+    private void setProperties(String type) throws Exception {
         AUT = getProp(type,"aut");
         String t_sut = getProp(type,"sut");
         SUT = t_sut == null ? null : "http://" + t_sut;
         TEST_PLATFORM = getProp(type,"platform");
         DRIVER = getProp(type,"driver");
         DEVICE_NAME = getProp(type,"deviceName");
-        prepareDriver();
     }
 
     protected void prepareDriver() throws Exception {

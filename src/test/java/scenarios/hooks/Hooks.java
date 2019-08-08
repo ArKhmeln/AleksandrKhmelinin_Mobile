@@ -11,19 +11,19 @@ public class Hooks extends DriverSetup {
 
     @BeforeSuite(description = "Prepare driver to run test(s)")
     public void setUp() throws Exception {
-        setPropertiesToPrepareDriver();
+        setPropertiesAndPrepareDriver();
         System.out.println("Driver prepared");
     }
 
     @BeforeGroups(description = "Prepare driver to run test(s)", groups = "native")
     public void setUpNative() throws Exception {
-        setPropertiesToPrepareDriver("native");
+        setPropertiesAndPrepareDriver("native");
         System.out.println("Driver prepared");
     }
 
     @BeforeGroups(description = "Prepare driver to run test(s)", groups = "web")
     public void setUpWeb() throws Exception {
-        setPropertiesToPrepareDriver("web");
+        setPropertiesAndPrepareDriver("web");
         System.out.println("Driver prepared");
     }
 
