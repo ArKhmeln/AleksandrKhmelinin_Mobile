@@ -15,13 +15,12 @@ public class DriverSetup extends TestProperties {
     private static WebDriverWait waitSingle; //selenium structure to work with timeouts
 
     //properties to be read (we hardcoded until using them)
-    protected String AUT; //(mobile) app under testing
-    protected String SUT; // site under testing
-    protected String TEST_PLATFORM;
-    protected String DRIVER;
-    protected String DEVICE_NAME;
-    private String type;
-    //Constructor initializes properties on driver creation
+    protected static String AUT; //(mobile) app under testing
+    protected static String SUT; // site under testing
+    protected static String TEST_PLATFORM;
+    protected static String DRIVER;
+    protected static String DEVICE_NAME;
+    private static String type;
 
     /**
      * Set appropriate capabilities to Appium driver on platform and application
@@ -31,16 +30,29 @@ public class DriverSetup extends TestProperties {
         this.type = type;
     }
 
-    protected void prepareDriver() throws Exception {
-        capabilities = new DesiredCapabilities();
-        String browserName;
-
+    protected void setPropertiesToPrepareDriver(String type) throws Exception {
         AUT = getProp(type,"aut");
         String t_sut = getProp(type,"sut");
         SUT = t_sut == null ? null : "http://" + t_sut;
         TEST_PLATFORM = getProp(type,"platform");
         DRIVER = getProp(type,"driver");
         DEVICE_NAME = getProp(type,"deviceName");
+        prepareDriver();
+    }
+
+    protected void setPropertiesToPrepareDriver() throws Exception {
+        AUT = getProp(type,"aut");
+        String t_sut = getProp(type,"sut");
+        SUT = t_sut == null ? null : "http://" + t_sut;
+        TEST_PLATFORM = getProp(type,"platform");
+        DRIVER = getProp(type,"driver");
+        DEVICE_NAME = getProp(type,"deviceName");
+        prepareDriver();
+    }
+
+    protected void prepareDriver() throws Exception {
+        capabilities = new DesiredCapabilities();
+        String browserName;
 
         switch(TEST_PLATFORM) {
             case "Android":
@@ -75,8 +87,8 @@ public class DriverSetup extends TestProperties {
             waitSingle = new WebDriverWait(driver(), 10);
         }
     }
-    //
-    protected AppiumDriver driver() throws Exception {
+
+    protected  AppiumDriver driver() throws Exception {
         if (driverSingle == null) {
             prepareDriver();
         }

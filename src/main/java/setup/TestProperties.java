@@ -11,16 +11,15 @@ import java.util.Properties;
  */
  class TestProperties {
 
-    private Properties currentProps = new Properties();
-    private String propertyPath;
+    private  Properties currentProps = new Properties();
+    private  String propertyPath;
 
     /**
      * Read set of properties
      * @param type
-     * @return
      * @throws IOException
      */
-    private Properties getCurrentProps(String type) throws IOException {
+    private  Properties getCurrentProps(String type) throws IOException {
 
         switch(type) {
             case "web":
@@ -42,10 +41,9 @@ import java.util.Properties;
      * Return certain property value by key
      * @param type
      * @param propKey
-     * @return
      * @throws IOException
      */
-     String getProp(String type, String propKey) throws IOException {
+      String getProp(String type, String propKey) throws IOException {
         if(!currentProps.containsKey(propKey)) {
             currentProps = getCurrentProps(type);
         }
