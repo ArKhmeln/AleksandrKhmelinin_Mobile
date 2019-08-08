@@ -15,15 +15,15 @@ public class DriverSetup extends TestProperties {
     protected DesiredCapabilities capabilities;
     private static WebDriverWait waitSingle; //selenium structure to work with timeouts
 
-    protected String AUT; //(mobile) app under testing
-    protected String SUT; // site under testing
-    protected String TEST_PLATFORM;
-    protected String DRIVER;
-    protected String DEVICE_NAME;
-    protected String UDID;
-    protected String APP_PACKAGE;
-    protected String APP_ACTIVITY;
-    private String type;
+    protected static String AUT; //(mobile) app under testing
+    protected static String SUT; // site under testing
+    protected static String TEST_PLATFORM;
+    protected static String DRIVER;
+    protected static String DEVICE_NAME;
+    protected static String UDID;
+    protected static String APP_PACKAGE;
+    protected static String APP_ACTIVITY;
+    private static String type;
 
 
     //Constructor initializes properties on driver creation
@@ -36,10 +36,17 @@ public class DriverSetup extends TestProperties {
         this.type = type;
     }
 
-    protected void prepareDriver() throws Exception {
-        capabilities = new DesiredCapabilities();
-        String browserName;
+    protected void setPropertiesAndPrepareDriver(String type) throws Exception {
+        setProperties(type);
+        prepareDriver();
+    }
 
+    protected void setPropertiesAndPrepareDriver() throws Exception {
+        setProperties(this.type);
+        prepareDriver();
+    }
+
+    private void setProperties(String type) throws Exception {
         AUT = getProp(type,"aut");
         String t_sut = getProp(type,"sut");
         SUT = t_sut == null ? null : "http://" + t_sut;
@@ -49,6 +56,11 @@ public class DriverSetup extends TestProperties {
         UDID = getProp(type, "udid");
         APP_PACKAGE = getProp(type, "appPackage");
         APP_ACTIVITY = getProp(type, "appActivity");
+    }
+
+    private void prepareDriver() throws Exception {
+        capabilities = new DesiredCapabilities();
+        String browserName;
 
         switch(TEST_PLATFORM) {
             case "Android":
