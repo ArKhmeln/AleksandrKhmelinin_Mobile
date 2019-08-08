@@ -6,7 +6,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 public class DriverSetup extends TestProperties {
@@ -21,26 +20,27 @@ public class DriverSetup extends TestProperties {
     protected String TEST_PLATFORM;
     protected String DRIVER;
     protected String DEVICE_NAME;
-
+    private String type;
     //Constructor initializes properties on driver creation
 
     /**
      * Set appropriate capabilities to Appium driver on platform and application
      * @param type
-     * @throws IOException
      */
-    protected DriverSetup(String type) throws IOException {
+    protected DriverSetup(String type) {
+        this.type = type;
+    }
+
+    protected void prepareDriver() throws Exception {
+        capabilities = new DesiredCapabilities();
+        String browserName;
+
         AUT = getProp(type,"aut");
         String t_sut = getProp(type,"sut");
         SUT = t_sut == null ? null : "http://" + t_sut;
         TEST_PLATFORM = getProp(type,"platform");
         DRIVER = getProp(type,"driver");
         DEVICE_NAME = getProp(type,"deviceName");
-    }
-
-    protected void prepareDriver() throws Exception {
-        capabilities = new DesiredCapabilities();
-        String browserName;
 
         switch(TEST_PLATFORM) {
             case "Android":

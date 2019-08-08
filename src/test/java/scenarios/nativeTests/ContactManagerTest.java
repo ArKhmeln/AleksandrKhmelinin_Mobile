@@ -10,7 +10,7 @@ import static org.testng.Assert.assertTrue;
 @Test(groups = "native")
 public class ContactManagerTest extends Hooks {
 
-   ContactManagerTest() throws Exception {
+   ContactManagerTest() {
        super("native");
    }
 
